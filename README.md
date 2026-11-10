@@ -18,6 +18,52 @@ Any modality, Many Applications, One Unified Verification Framework
 
 ---
 
+## Reproduction notes (FTEC5660 coursework)
+
+This fork contains a reproducibility study of the Terminal-Bench 2.1
+self-verification result. Everything below is the upstream project unchanged
+plus **three commits** on top of `v0.3.0`:
+
+| Commit | What |
+|---|---|
+| `f15300b` | `VERIFIER_MODEL` opt-in so a DeepSeek-compatible **relay** uses the DeepSeek call path (without it, scores silently collapse to 0.5 ties) |
+| `ef8a16c` | `tb21_10` / `tb21_swing10` subsets + `scripts/make_subsets.py`, `smoke_proxy.py`, `repro_all.sh` |
+| `b888653` | [`REPORT.md`](REPORT.md), [`SCRIPT.md`](SCRIPT.md), [`THINKING_MAP.md`](THINKING_MAP.md), [`REPRODUCTION_NOTES.md`](REPRODUCTION_NOTES.md) |
+
+**Read [`REPORT.md`](REPORT.md) first.** Short version: the framework reproduces
+end-to-end on a laptop with no GPU (48 verifier calls, ~25 min, ~CNY 4); the
+reported *direction* reproduces (on the 3 informative tasks, Pass@1 53.3% →
+verifier 100%); the reported *size of the gap* does not, because a 10-task
+subset has almost no headroom — 50 of the 89 tasks are all-pass.
+
+Run it:
+
+```bash
+python3 -m venv .venv && ./.venv/bin/pip install -e .
+
+# .env — any OpenAI-compatible endpoint that returns logprobs on the score token
+OPENAI_BASE_URL=https://api.dspass.net/v1
+OPENAI_API_KEY=<your key>
+VERIFIER_MODEL=deepseek-v4.1-flash   # opt in to the DeepSeek tag-emission path
+
+# 1. Always do this first: one known-good triple must NOT come back as 0.5/0.5/0.5
+./.venv/bin/python scripts/smoke_proxy.py
+
+# 2. Build the subsets (relative symlinks into the released corpus)
+./.venv/bin/python scripts/make_subsets.py --verify
+
+# 3. Baseline, then the modification (K=2 -> K=1)
+./.venv/bin/python scripts/run.py tb21_10 --pivots 1 --n-evaluations 2 --max-workers 3
+./.venv/bin/python scripts/run.py tb21_10 --pivots 1 --n-evaluations 1 --max-workers 3
+```
+
+The only scientific modification is `n_evaluations` K = 2 → 1, and it is
+**not identifiable on this subset** — 7 of 10 tasks pass in every trial, so no
+ranking change can surface. Report section 5 explains why that is the honest
+conclusion rather than a null result.
+
+---
+
 ## Installation
 
 ```bash

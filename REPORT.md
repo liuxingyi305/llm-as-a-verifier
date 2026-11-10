@@ -5,7 +5,8 @@
 Name: _[fill in]_ · Student ID: _[fill in]_ · Date: 10 November 2026
 
 Repository under test: `llm-as-a-verifier/llm-as-a-verifier` (v0.3.0, MIT, 3.3k stars)
-My fork: `github.com/liuxingyi305/llm-as-a-verifier` (branch `repro`)
+My fork: <https://github.com/liuxingyi305/llm-as-a-verifier> — branch `repro`
+(also synced to `main`); three commits on top of `v0.3.0`
 
 ---
 
