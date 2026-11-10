@@ -144,6 +144,15 @@ def create_openai_client(base_url=None, api_key=None):
     if "api.deepseek.com" in base_url:
         client._llm_verifier_model = DEEPSEEK_MODEL
         client._llm_verifier_deepseek = True
+    # Repro patch: a DeepSeek-compatible proxy (same API surface, no prefill
+    # support) can be driven through the DeepSeek call path by naming the
+    # model in VERIFIER_MODEL. Without this the OpenAI-compatible path would
+    # attempt the vLLM prefill and silently lose the score distribution.
+    if not getattr(client, "_llm_verifier_deepseek", False):
+        override = os.environ.get("VERIFIER_MODEL")
+        if override:
+            client._llm_verifier_model = override
+            client._llm_verifier_deepseek = True
     return client
 
 
