@@ -1,0 +1,27 @@
+Loading TERMINAL-BENCH 2.1 SUBSET (10 tasks, mini-swe-agent, deepseek-v4-flash, x5) ...
+  tasks=10  all-pass=7  swing=3  N(trials)=5
+  criteria=['specification', 'output_match', 'error_signals']  K=1  pivots=1  seed=0  max_workers=3
+Phase A: ring pass
+  All scores cached (144 entries)
+Phase B: pivot rounds
+  All scores cached (144 entries)
+
+========================================================================
+TERMINAL-BENCH 2.1 SUBSET (10 tasks, mini-swe-agent, deepseek-v4-flash, x5)
+  g20  criteria=['specification', 'output_match', 'error_signals']  K=1  pivots=1  seed=0
+  tasks=10  swing=3  N(trials)=5  comparisons/task=9.0
+========================================================================
+Method                               Score     Rate
+------------------------------------------------------------------------
+Pass@1                          8.60/10    86.0%
+LLM-as-a-Verifier                 10/10   100.0%
+Oracle (Bo5)                      10/10   100.0%
+------------------------------------------------------------------------
+Verifier tokens (0 verifier calls)
+  input                                    0
+    cached input                           0  (0.0% hit rate)
+    uncached input                         0
+  output                                   0
+    reasoning                              0
+
+Results saved: /Users/liuxingyi/WorkBuddy/2026-11-03-15-52-57/llm-as-a-verifier/results/tb21_10.txt
