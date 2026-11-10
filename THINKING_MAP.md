@@ -92,15 +92,15 @@
 
 | PDF 条款 | 要求 | 我的做法 | 证据位置 |
 |---|---|---|---|
-| Instructions | 跑起来 + 复现 ≥1 个已报告结果 | 89 任务全集复算得 78.7%，与论文 Bo5 Pass@1 完全一致；10 任务子集 Pass@1 86.0% | REPORT §4.2 |
+| Instructions | 跑起来 + 复现 ≥1 个已报告结果 | 89 任务全集复算得 78.7%，与论文 Bo5 Pass@1 完全一致；10 任务子集 Pass@1 86.0% | REPORT §4 |
 | Instructions | 一个小而界定清楚的改动 + 报告变化 | K 2→1，48→0 次调用，选择不变 | REPORT §5 |
 | §1 选题 | 公共仓库 / 可跑 / 有明确目标 / 预算内 | 老师清单 No.21 Tier A；轨迹随仓库分发；目标是一行表格 | REPORT §1、§3 |
 | §2 范围 | 允许一个切片：一个 benchmark、一行表格 | 89 任务里取 10 个，一个 benchmark，一行结果 | REPORT §3 |
 | §3 不重写 | 用作者仓库，产出自己的测量 | `pip install -e .`，未改算法，只加适配层 | commit `f15300b` |
 | §4 Edge case A | 换模型须记录 5 项 + 明说不直接可比 | 模型 `deepseek-v4.1-flash` / 供应商 relay / base URL / 温度与 max_tokens 由框架固定 / prompt 未改；"not directly comparable" 写进 §2 并在讲稿 4:00 口述 | REPORT §2 |
-| §5 Edge case B | 挑一个 benchmark 深挖 + 识别隐藏假设 + 3–5 trials 均值方差 | 挑 TB2.1；隐藏假设 4 条（见下）；用 5 条 released trial 报均值；**seed 方差未做，已声明为局限** | REPORT §4.2、§7 |
+| §5 Edge case B | 挑一个 benchmark 深挖 + 识别隐藏假设 + 3–5 trials 均值方差 | 挑 TB2.1；隐藏假设 4 条（见下）；用 5 条 released trial 报均值；**seed 方差未做，已声明为局限** | REPORT §4、§7 |
 | §6 改动 | (i) 孤立 (ii) 可量化 | 见 4.3 | REPORT §5 表格 |
-| §7 报告 | ≤10 页，7 节结构 | 7 节全齐 + 2 个附录，约 8 页 | `REPORT.md` |
+| §7 报告 | ≤10 页，7 节结构 | 7 节全齐，约 4 页（152 行） | `REPORT.md` |
 | §7 仓库 | README 安装运行 / 改动在 commit 里 / 无密钥 | README 原样保留；3 个原子 commit；`.env` 被 `.gitignore` 忽略且从未入库 | `git log`、`.gitignore` |
 | §7 演示 | ≤15 分钟，四个必讲点 | 14:30 讲稿，四点全覆盖 | `SCRIPT.md` |
 
