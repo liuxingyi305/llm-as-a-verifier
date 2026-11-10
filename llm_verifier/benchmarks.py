@@ -27,6 +27,38 @@ class Benchmark:
 
 
 BENCHMARKS = {
+    # Repro patch: 10 swing tasks (1-3 of 5 trials pass) from terminal_bench_2.1.
+    # A lexicographic subset is dominated by all-pass tasks, which leaves the
+    # selection mechanism nothing to measure (see REPRODUCTION_NOTES.md).
+    # Costed but not run — a swing-heavy subset makes the loader score all 5
+    # trials per task, ~6x the comparisons of an all-pass subset.
+    "tb21_swing10": Benchmark(
+        name="TERMINAL-BENCH 2.1 SWING-10 (mini-swe-agent, deepseek-v4-flash, x5)",
+        loader="terminal",
+        prompts="terminal_bench",
+        criteria=["specification", "output_match", "error_signals"],
+        cache="cache/cache_tb21_swing10.json",
+        results="results/tb21_swing10.txt",
+        data={"agent_dir": "data/subsets/tb21_swing10/mini-swe-agent_deepseek-v4-flash"},
+        n_evaluations=2,
+        max_workers=3,
+    ),
+    # Repro patch: 10-task subset of terminal_bench_2.1 (first 10 task dirs in
+    # lexicographic order), the subset the report's baseline actually ran on.
+    # Same loader, criteria and data layout as the full benchmark.
+    # max_workers=3: 8 trips the relay's rate limit (10 scoring errors in the
+    # first sweep, 0 at concurrency 3).
+    "tb21_10": Benchmark(
+        name="TERMINAL-BENCH 2.1 SUBSET (10 tasks, mini-swe-agent, deepseek-v4-flash, x5)",
+        loader="terminal",
+        prompts="terminal_bench",
+        criteria=["specification", "output_match", "error_signals"],
+        cache="cache/cache_tb21_10.json",
+        results="results/tb21_10.txt",
+        data={"agent_dir": "data/subsets/tb21_10/mini-swe-agent_deepseek-v4-flash"},
+        n_evaluations=2,
+        max_workers=3,
+    ),
     "terminal_bench": Benchmark(
         name="TERMINAL-BENCH 2.0  (Capy · GPT-5.5, x5)",
         loader="terminal",

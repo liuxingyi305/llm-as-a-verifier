@@ -26,3 +26,6 @@ docs/_build/doctrees/
 
 # Run logs
 logs/
+
+# Local scratch tempdir (harness refuses /tmp in some sandboxes)
+.tmp/
