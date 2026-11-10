@@ -157,9 +157,10 @@ That failure is silent. Accuracy looks plausible. Nothing errors. I only caught
 it because I printed the scores of one known-good triple first.
 
 **Third.** My cost model was wrong, and I caught it after starting a run. A task
-with mixed outcomes costs six times a task that always passes — thirty
-comparisons against zero. I had costed the swing subset at ninety comparisons; it
-was three hundred. I stopped the run at zero progress and lost almost nothing.
+where the trials disagree needs thirty comparisons. A task where they all pass
+needs none. So two subsets with the same number of tasks can differ severalfold
+in price. I had costed the swing subset at ninety comparisons; it was three
+hundred. I stopped the run at zero progress and lost almost nothing.
 
 ---
 

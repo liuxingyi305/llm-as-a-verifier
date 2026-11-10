@@ -123,7 +123,7 @@ for 6 swing tasks and did not run, to stay inside the compute budget.
 | 3 | `DEEPSEEK_EFFORT=off` changes nothing | Relay accepts `thinking` and still returns reasoning → not a cost lever; reduced scope instead |
 | 4 | 10 errors in the first sweep | Concurrency 8 tripped rate limits → `--max-workers 3`, 0 errors in 48 calls |
 | 5 | Crash at 92%, no output | Local temp-dir restriction, not a framework bug → `TMPDIR` inside the workspace; cache made the re-run nearly free |
-| 6 | Aborted a swing-subset run at 0/300 jobs | A swing subset makes the loader score **all 5 trials** (300 comparisons ≈ CNY 25), not the 90 I budgeted. Killed at zero spend — the cost model had been off 6× |
+| 6 | Aborted a swing-subset run at 0/300 jobs | A swing subset makes the loader score **all 5 trials** (300 comparisons ≈ CNY 25), not the 90 I budgeted. Killed at zero spend — the estimate was low by 3× |
 
 ## 7. Conclusions
 
@@ -148,5 +148,5 @@ swing-heavy benchmark and repeated seeds. That gap between "the code runs" and
 triple before trusting any number — the wrong code path fails silently at 0.5.
 (2) Choose tasks by outcome variance, not by order; 36 swing tasks exist, and 10
 of them is the smallest experiment that can detect the effect (≈ CNY 8).
-(3) Budget by comparisons, not tasks — a mixed-outcome task costs 6× an
-all-pass one.
+(3) Budget by comparisons, not tasks — an all-pass task needs none; a
+mixed-outcome one needs all 5 trials scored.
